@@ -97,7 +97,7 @@ body{
 /* Hamur */
 .pastry{
     position: relative;
-    animation: spinPizza 10s infinite;
+    /* animation: spinPizza 10s infinite; */
 }
 .pastry-standart{
     width: 14em;

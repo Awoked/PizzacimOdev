@@ -7,3 +7,5 @@ iconlar için : https://fonts.google.com/icons
 slider resimleri için : https://www.dominos.com.tr
 
 shopping cart mantığı : https://www.youtube.com/watch?v=UcrypywtAm0
+
+olmazsa olmaz stackoverflow : stackoverflow.com

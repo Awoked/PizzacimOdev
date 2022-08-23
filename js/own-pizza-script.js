@@ -9,8 +9,7 @@ let customPizza = [
         thickPastry : 5,
         standartPastry : 0,
         thinPastry : -3,
-
-
+        
         totalPrice : 0,
 
         inceHamur : -3,
@@ -90,9 +89,6 @@ customPizzaRender();
 // Toplam price
 function totalPrice() {
     let subtotal = document.querySelector('.specialPizzaPrice');
-    customPizza.forEach((items) => {    
-        localStorage.setItem("SPECIALPIZZA", JSON.stringify(items));
-    });
     customPizza.forEach((items) => {
         items.totalPrice = items.startPrice;
         subtotal.innerHTML = items.totalPrice;
@@ -132,6 +128,8 @@ function resetChoice() {
     pepperoniBtn.classList.remove('disabled');
     cheeseBtn.classList.remove('disabled');
     cornBtn.classList.remove('disabled');
+    window.location.reload();
+    cartRender();
 }
 
 
@@ -154,30 +152,33 @@ let hamurKalinlikEl = document.querySelector('.kalinlik');
 
 kalinHamur.addEventListener("click", () => {
     hamurKalinlikEl.style.height = "20px";     
+    standartHamur.classList.add("disabled");
+    inceHamur.classList.add("disabled");
     kalinHamur.classList.add("disabled");
     customPizza.forEach((items) => {
         items.startPrice += items.kalinHamur;
         totalPrice();
     });
-    cartRender();
 });
 inceHamur.addEventListener("click", () => {
     hamurKalinlikEl.style.height = "4px";       
+    standartHamur.classList.add("disabled");
     inceHamur.classList.add("disabled");
+    kalinHamur.classList.add("disabled");
     customPizza.forEach((items) => {
         items.startPrice += items.inceHamur;
         totalPrice();
     });
-    cartRender();
 });
 standartHamur.addEventListener("click", () => {
     hamurKalinlikEl.style.height = "8px";       
     standartHamur.classList.add("disabled");
+    inceHamur.classList.add("disabled");
+    kalinHamur.classList.add("disabled");
     customPizza.forEach((items) => {
         items.startPrice += items.standartHamur;
         totalPrice();
     });
-    cartRender();
 });
 
 
@@ -190,6 +191,8 @@ standartPastryBtn.addEventListener("click", function standartPastryCheck() {
         pastry.classList.add('pastry-standart');
         pastry.classList.remove('pastry-thin');
         pastry.classList.remove('pastry-thick');
+        thickPastryBtn.classList.add('disabled');
+        thinPastryBtn.classList.add('disabled');
         standartPastryBtn.classList.add('disabled');
         slice1.forEach((slice1) => {
             slice1.style.display = "none";
@@ -216,7 +219,6 @@ standartPastryBtn.addEventListener("click", function standartPastryCheck() {
             items.startPrice += items.standartPastry;
             totalPrice();
         });
-        cartRender();
 });
 
 // Küçük Boy Kontrolü
@@ -224,8 +226,10 @@ thinPastryBtn.addEventListener("click", function thinPastryCheck() {
     let slice1 = document.querySelectorAll('.slice1');
     let slice2 = document.querySelectorAll('.slice2');
     let slice3 = document.querySelectorAll('.slice3');
-    let slice4 = document.querySelectorAll('.slice4');
+    let slice4 = document.querySelectorAll('.slice4');    
+        thickPastryBtn.classList.add('disabled');
         thinPastryBtn.classList.add('disabled');
+        standartPastryBtn.classList.add('disabled');
         pastry.classList.remove('pastry-standart');
         pastry.classList.add('pastry-thin');
         pastry.classList.remove('pastry-thick');
@@ -251,7 +255,6 @@ thinPastryBtn.addEventListener("click", function thinPastryCheck() {
             items.startPrice += items.thinPastry;            
             totalPrice();
         });
-        cartRender();
 }); 
 
 // Büyük boy Kontrolü
@@ -263,6 +266,8 @@ thickPastryBtn.addEventListener("click", function thinPastryCheck() {
         let slice3 = document.querySelectorAll('.slice3');
         let slice4 = document.querySelectorAll('.slice4');
         thickPastryBtn.classList.add('disabled');
+        thinPastryBtn.classList.add('disabled');
+        standartPastryBtn.classList.add('disabled');
         pastry.classList.remove('pastry-standart');
         pastry.classList.remove('pastry-thin');
         pastry.classList.add('pastry-thick');
@@ -283,7 +288,6 @@ thickPastryBtn.addEventListener("click", function thinPastryCheck() {
             items.startPrice += items.thickPastry;      
             totalPrice();
         });
-        cartRender();
 });   
 
 // Peynir Kontrolü
@@ -297,7 +301,6 @@ cheeseBtn.addEventListener("click", function cheeseAdd() {
         totalPrice();
     });
     cheeseBtn.classList.add('disabled');
-    cartRender();
 });
 
 // Pepperoni Kontrolü
@@ -311,7 +314,6 @@ pepperoniBtn.addEventListener("click", function pepperoniAdd() {
         totalPrice();
     });
     pepperoniBtn.classList.add('disabled');
-    cartRender();
 });
 
 // Mısır kontrolü
@@ -325,7 +327,6 @@ cornBtn.addEventListener("click", function cornAdd() {
         totalPrice();
     });
     cornBtn.classList.add('disabled');
-    cartRender();
 });
 
 
@@ -355,9 +356,14 @@ function cartRender() {
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-column justify-content-between">
-                        <button class="btn-close align-self-end" onclick="removeItem();"></button>
-                        <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
+                    <div class="d-flex flex-row justify-content-between align-items-center">
+                        <div>
+                            
+                        </div>
+                        <div class="d-flex flex-column justify-content-between">
+                            <button class="btn-close align-self-end" onclick="removeItem();"></button>
+                            <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -367,19 +373,28 @@ function cartRender() {
     }
 }
 
+// pizza sayısını arttırma 
+
+
+
 // Sepetteki itemi silme 
 
 function removeItem() {
+    resetChoice();
     customPizza = null ; 
     localStorage.setItem("SPECIALPIZZA", JSON.stringify(customPizza));
     document.querySelector('.specialPizzaItem').remove();
     localStorage.removeItem('SPECIALPIZZA');
     localStorage.removeItem('PIZZAIMG');
-    totalPrice();
+    document.querySelector('.subtotal').innerHTML = "0";
+    window.location.reload();
 }
 
 // Sepete ekleme butonu
 basketBtn.addEventListener("click", function addToBasket() {  
+    customPizza.forEach((items) => {    
+        localStorage.setItem("SPECIALPIZZA", JSON.stringify(items));
+    });
     console.log("onpress");
     let customPizzaImage = document.querySelector('.custom-pizza-image');
     localStorage.setItem("PIZZAIMG", customPizzaImage.outerHTML);
@@ -388,3 +403,4 @@ basketBtn.addEventListener("click", function addToBasket() {
 });
 
 cartRender();
+
