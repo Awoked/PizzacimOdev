@@ -60,7 +60,7 @@ function customPizzaRender() {
         </div>
         <div class="d-flex flex-row align-items-center justify-content-between">
             <label for="standartHamur"><span class="fw-bold">Standart Hamur</span><span class="text-secondary"> +${items.standartHamur}TL</span></label>
-            <input type="button" class="btn btn-warning" class="p-0" value="+" id="standartHamur"">
+            <input type="button" class="btn btn-warning" class="p-0" value="+" id="standartHamur">
         </div>
         <div class="d-flex flex-column gap-2 w-100">
             <div class="d-flex w-100 rounded p-2 justify-content-end bg-warning">
@@ -151,34 +151,79 @@ let hamurKalinlikEl = document.querySelector('.kalinlik');
 // kalinlik kontrolleri
 
 kalinHamur.addEventListener("click", () => {
-    hamurKalinlikEl.style.height = "20px";     
-    standartHamur.classList.add("disabled");
-    inceHamur.classList.add("disabled");
-    kalinHamur.classList.add("disabled");
-    customPizza.forEach((items) => {
-        items.startPrice += items.kalinHamur;
-        totalPrice();
-    });
+    if (kalinHamur.value === "+") {
+        kalinHamur.value = "-";
+        hamurKalinlikEl.style.height = "20px";     
+        standartHamur.classList.add("disabled");
+        inceHamur.classList.add("disabled");
+        kalinHamur.classList.add("btn-danger");
+        kalinHamur.classList.remove("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice += items.kalinHamur;
+            totalPrice();
+        });
+    } else if(kalinHamur.value === "-"){
+        kalinHamur.value = "+";
+        hamurKalinlikEl.style.height = "8px";     
+        standartHamur.classList.remove("disabled");
+        inceHamur.classList.remove("disabled");
+        kalinHamur.classList.remove("btn-danger");
+        kalinHamur.classList.add("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice -= items.kalinHamur;
+            totalPrice();
+        });
+    }
 });
 inceHamur.addEventListener("click", () => {
-    hamurKalinlikEl.style.height = "4px";       
-    standartHamur.classList.add("disabled");
-    inceHamur.classList.add("disabled");
-    kalinHamur.classList.add("disabled");
-    customPizza.forEach((items) => {
-        items.startPrice += items.inceHamur;
-        totalPrice();
-    });
+    if (inceHamur.value === "+") {
+        inceHamur.value = "-";
+        hamurKalinlikEl.style.height = "4px";       
+        standartHamur.classList.add("disabled");
+        kalinHamur.classList.add("disabled");
+        inceHamur.classList.add("btn-danger");
+        inceHamur.classList.remove("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice += items.inceHamur;
+            totalPrice();
+        });
+    } else if (inceHamur.value === "-") {
+        inceHamur.value = "+";
+        hamurKalinlikEl.style.height = "8px";       
+        standartHamur.classList.remove("disabled");
+        kalinHamur.classList.remove("disabled");
+        inceHamur.classList.remove("btn-danger");
+        inceHamur.classList.add("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice -= items.inceHamur;
+            totalPrice();
+        });
+    }
 });
 standartHamur.addEventListener("click", () => {
-    hamurKalinlikEl.style.height = "8px";       
-    standartHamur.classList.add("disabled");
-    inceHamur.classList.add("disabled");
-    kalinHamur.classList.add("disabled");
-    customPizza.forEach((items) => {
-        items.startPrice += items.standartHamur;
-        totalPrice();
-    });
+    if (standartHamur.value === "+") {
+        standartHamur.value = "-";
+        hamurKalinlikEl.style.height = "8px";      
+        inceHamur.classList.add("disabled");
+        kalinHamur.classList.add("disabled");
+        standartHamur.classList.add("btn-danger");
+        standartHamur.classList.remove("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice += items.standartHamur;
+            totalPrice();
+        });
+    } else if (standartHamur.value === "-") {
+        standartHamur.value = "+";
+        hamurKalinlikEl.style.height = "8px";      
+        inceHamur.classList.remove("disabled");
+        kalinHamur.classList.remove("disabled");
+        standartHamur.classList.remove("btn-danger");
+        standartHamur.classList.add("btn-warning");
+        customPizza.forEach((items) => {
+            items.startPrice -= items.standartHamur;
+            totalPrice();
+        });
+    }
 });
 
 
@@ -188,37 +233,66 @@ standartPastryBtn.addEventListener("click", function standartPastryCheck() {
     let slice2 = document.querySelectorAll('.slice2');
     let slice3 = document.querySelectorAll('.slice3');
     let slice4 = document.querySelectorAll('.slice4');
-        pastry.classList.add('pastry-standart');
-        pastry.classList.remove('pastry-thin');
-        pastry.classList.remove('pastry-thick');
-        thickPastryBtn.classList.add('disabled');
-        thinPastryBtn.classList.add('disabled');
-        standartPastryBtn.classList.add('disabled');
-        slice1.forEach((slice1) => {
-            slice1.style.display = "none";
-        });
-        slice2.forEach((slice2)=>{
-            slice2.style.display = "none";
-        });
-        slice3.forEach((slice3)=>{
-            slice3.style.display = "none";
-        });
-        slice4.forEach((slice4)=>{    
-            slice4.style.display = "none";
-        })
-        slice1.forEach((slice1) => {
-            slice1.style.display = "block";
-        });
-        slice2.forEach((slice2)=>{
-            slice2.style.display = "block";
-        });
-        slice3.forEach((slice3)=>{
-            slice3.style.display = "block";
-        });
-        customPizza.forEach((items) => {
-            items.startPrice += items.standartPastry;
-            totalPrice();
-        });
+        if (standartPastryBtn.value === "+") {
+            standartPastryBtn.value = "-";
+            pastry.classList.add('pastry-standart');
+            pastry.classList.remove('pastry-thin');
+            pastry.classList.remove('pastry-thick');
+            thickPastryBtn.classList.add('disabled');
+            thinPastryBtn.classList.add('disabled');
+            standartPastryBtn.classList.remove('btn-warning');
+            standartPastryBtn.classList.add('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "none";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "none";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "none";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "none";
+            })
+            slice1.forEach((slice1) => {
+                slice1.style.display = "block";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "block";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "block";
+            });
+            customPizza.forEach((items) => {
+                items.startPrice += items.standartPastry;
+                totalPrice();
+            });
+        } else if (standartPastryBtn.value === "-") {
+            standartPastryBtn.value = "+";
+            pastry.classList.add('pastry-standart');
+            pastry.classList.remove('pastry-thin');
+            pastry.classList.remove('pastry-thick');
+            thickPastryBtn.classList.remove('disabled');
+            thinPastryBtn.classList.remove('disabled');
+            standartPastryBtn.classList.add('btn-warning');
+            standartPastryBtn.classList.remove('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "none";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "none";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "none";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "none";
+            })
+            customPizza.forEach((items) => {
+                items.startPrice -= items.standartPastry;
+                totalPrice();
+            });
+        }
 });
 
 // Küçük Boy Kontrolü
@@ -227,34 +301,63 @@ thinPastryBtn.addEventListener("click", function thinPastryCheck() {
     let slice2 = document.querySelectorAll('.slice2');
     let slice3 = document.querySelectorAll('.slice3');
     let slice4 = document.querySelectorAll('.slice4');    
-        thickPastryBtn.classList.add('disabled');
-        thinPastryBtn.classList.add('disabled');
-        standartPastryBtn.classList.add('disabled');
-        pastry.classList.remove('pastry-standart');
-        pastry.classList.add('pastry-thin');
-        pastry.classList.remove('pastry-thick');
-        slice1.forEach((slice1) => {
-            slice1.style.display = "none";
-        });
-        slice2.forEach((slice2)=>{
-            slice2.style.display = "none";
-        });
-        slice3.forEach((slice3)=>{
-            slice3.style.display = "none";
-        });
-        slice4.forEach((slice4)=>{    
-            slice4.style.display = "none";
-        })
-        slice1.forEach((slice1) => {
-            slice1.style.display = "block";
-        });
-        slice2.forEach((slice2)=>{
-            slice2.style.display = "block";
-        });
-        customPizza.forEach((items) => {
-            items.startPrice += items.thinPastry;            
-            totalPrice();
-        });
+        if (thinPastryBtn.value === "+") {
+            thinPastryBtn.value = "-";
+            thickPastryBtn.classList.add('disabled');
+            standartPastryBtn.classList.add('disabled');
+            pastry.classList.remove('pastry-standart');
+            pastry.classList.add('pastry-thin');
+            pastry.classList.remove('pastry-thick');
+            thinPastryBtn.classList.remove('btn-warning');
+            thinPastryBtn.classList.add('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "none";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "none";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "none";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "none";
+            })
+            slice1.forEach((slice1) => {
+                slice1.style.display = "block";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "block";
+            });
+            customPizza.forEach((items) => {
+                items.startPrice += items.thinPastry;            
+                totalPrice();
+            });
+        } else if (thinPastryBtn.value === "-") {
+            thinPastryBtn.value = "+";
+            thickPastryBtn.classList.remove('disabled');
+            standartPastryBtn.classList.remove('disabled');
+            pastry.classList.add('pastry-standart');
+            pastry.classList.remove('pastry-thin');
+            pastry.classList.remove('pastry-thick');
+            thinPastryBtn.classList.add('btn-warning');
+            thinPastryBtn.classList.remove('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "none";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "none";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "none";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "none";
+            })
+            customPizza.forEach((items) => {
+                items.startPrice -= items.thinPastry;            
+                totalPrice();
+            });
+        }
 }); 
 
 // Büyük boy Kontrolü
@@ -265,68 +368,143 @@ thickPastryBtn.addEventListener("click", function thinPastryCheck() {
         let slice2 = document.querySelectorAll('.slice2');
         let slice3 = document.querySelectorAll('.slice3');
         let slice4 = document.querySelectorAll('.slice4');
-        thickPastryBtn.classList.add('disabled');
-        thinPastryBtn.classList.add('disabled');
-        standartPastryBtn.classList.add('disabled');
-        pastry.classList.remove('pastry-standart');
-        pastry.classList.remove('pastry-thin');
-        pastry.classList.add('pastry-thick');
-        slice1.forEach((slice1) => {
-            slice1.style.display = "block";
-        });
-        slice2.forEach((slice2)=>{
-            slice2.style.display = "block";
-        });
-        slice3.forEach((slice3)=>{
-            slice3.style.display = "block";
-        });
-        slice4.forEach((slice4)=>{    
-            slice4.style.display = "block";
-        })
-        
-        customPizza.forEach((items) => {
-            items.startPrice += items.thickPastry;      
-            totalPrice();
-        });
+        if (thickPastryBtn.value === "+") {
+            thickPastryBtn.value = "-";
+            thinPastryBtn.classList.add('disabled');
+            standartPastryBtn.classList.add('disabled');
+            pastry.classList.remove('pastry-standart');
+            pastry.classList.remove('pastry-thin');
+            pastry.classList.add('pastry-thick');
+            thickPastryBtn.classList.remove('btn-warning');
+            thickPastryBtn.classList.add('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "block";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "block";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "block";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "block";
+            })
+            
+            customPizza.forEach((items) => {
+                items.startPrice += items.thickPastry;      
+                totalPrice();
+            });
+        } else if (thickPastryBtn.value === "-") {
+            thickPastryBtn.value = "+";
+            thinPastryBtn.classList.remove('disabled');
+            standartPastryBtn.classList.remove('disabled');
+            pastry.classList.add('pastry-standart');
+            pastry.classList.remove('pastry-thin');
+            pastry.classList.remove('pastry-thick');
+            thickPastryBtn.classList.add('btn-warning');
+            thickPastryBtn.classList.remove('btn-danger');
+            slice1.forEach((slice1) => {
+                slice1.style.display = "none";
+            });
+            slice2.forEach((slice2)=>{
+                slice2.style.display = "none";
+            });
+            slice3.forEach((slice3)=>{
+                slice3.style.display = "none";
+            });
+            slice4.forEach((slice4)=>{    
+                slice4.style.display = "none";
+            })
+            
+            customPizza.forEach((items) => {
+                items.startPrice -= items.thickPastry;      
+                totalPrice();
+            });
+        }
 });   
 
 // Peynir Kontrolü
 cheeseBtn.addEventListener("click", function cheeseAdd() {
     let cheese = document.querySelectorAll('.cheese');
-    cheese.forEach((cheeseItems)=>{
-        cheeseItems.style.display = "flex";
-    })
-    customPizza.forEach((items) => {
-        items.startPrice += items.cheesePrice;      
-        totalPrice();
-    });
-    cheeseBtn.classList.add('disabled');
+    if (cheeseBtn.value === "+") {
+        cheeseBtn.value = "-";
+        cheese.forEach((cheeseItems)=>{
+            cheeseItems.style.display = "flex";
+        })
+        customPizza.forEach((items) => {
+            items.startPrice += items.cheesePrice;      
+            totalPrice();
+        });
+        cheeseBtn.classList.remove('btn-warning');
+        cheeseBtn.classList.add('btn-danger');
+    } else if (cheeseBtn.value === "-") {
+        cheeseBtn.value = "+";
+        cheese.forEach((cheeseItems)=>{
+            cheeseItems.style.display = "none";
+        })
+        customPizza.forEach((items) => {
+            items.startPrice -= items.cheesePrice;      
+            totalPrice();
+        });
+        cheeseBtn.classList.add('btn-warning');
+        cheeseBtn.classList.remove('btn-danger');
+    }
 });
 
 // Pepperoni Kontrolü
 pepperoniBtn.addEventListener("click", function pepperoniAdd() {
     let pepperoni = document.querySelectorAll('.pepperoni-wrapper');
-    pepperoni.forEach((pepperoni) => {
-        pepperoni.style.display = "flex";
-    });
-    customPizza.forEach((items) => {
-        items.startPrice += items.pepperoniPrice;      
-        totalPrice();
-    });
-    pepperoniBtn.classList.add('disabled');
+    if (pepperoniBtn.value === "+") {
+        pepperoniBtn.value = "-";
+        pepperoni.forEach((pepperoni) => {
+            pepperoni.style.display = "flex";
+        });
+        customPizza.forEach((items) => {
+            items.startPrice += items.pepperoniPrice;      
+            totalPrice();
+        });
+        pepperoniBtn.classList.remove('btn-warning');
+        pepperoniBtn.classList.add('btn-danger');
+    } else if (pepperoniBtn.value === "-") {
+        pepperoniBtn.value = "+";
+        pepperoni.forEach((pepperoni) => {
+            pepperoni.style.display = "none";
+        });
+        customPizza.forEach((items) => {
+            items.startPrice -= items.pepperoniPrice;      
+            totalPrice();
+        });
+        pepperoniBtn.classList.add('btn-warning');
+        pepperoniBtn.classList.remove('btn-danger');
+    }
 });
 
 // Mısır kontrolü
 cornBtn.addEventListener("click", function cornAdd() {
     let corn = document.querySelectorAll('.corn-wrapper');
-    corn.forEach((corn) => {
-        corn.style.display = "flex";
-    });
-    customPizza.forEach((items) => {
-        items.startPrice += items.cornPrice;      
-        totalPrice();
-    });
-    cornBtn.classList.add('disabled');
+    if (cornBtn.value === "+") {
+        cornBtn.value = "-";
+        corn.forEach((corn) => {
+            corn.style.display = "flex";
+        });
+        customPizza.forEach((items) => {
+            items.startPrice += items.cornPrice;      
+            totalPrice();
+        });
+        cornBtn.classList.remove('btn-warning');
+        cornBtn.classList.add('btn-danger');
+    } else if (cornBtn.value === "-") {
+        cornBtn.value = "+";
+        corn.forEach((corn) => {
+            corn.style.display = "none";
+        });
+        customPizza.forEach((items) => {
+            items.startPrice -= items.cornPrice;      
+            totalPrice();
+        });
+        cornBtn.classList.add('btn-warning');
+        cornBtn.classList.remove('btn-danger');
+    }
 });
 
 

@@ -115,32 +115,32 @@ function renderCartItems() {
     });
 
     // özel pizza renderı
-    let localCartInfo = JSON.parse(localStorage.getItem("SPECIALPIZZA"));
-        console.log('for');
-        console.log(localCartInfo);
-        if (localCartInfo != null) {
-            cartItems.innerHTML = `
-            <div class="card w-100 specialPizzaItem">
-                <div class="card-body d-flex flex-column">
-                    <div class="img-fluid w-100 rounded" >
-                        ${localStorage.getItem('PIZZAIMG')}
-                    </div>
-                    <div class="d-flex gap-2">
-                        <div class="d-flex flex-column flex-wrap">
-                            <h5 class="card-title m-0 p-0 text-start">Özel Pizza</h5>                
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column justify-content-between">
-                        <button class="btn-close align-self-end" onclick="removeItem();"></button>
-                        <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
-                    </div>
-                </div>
-            </div>
-            `;
-            subTotalEl.innerHTML = localCartInfo.totalPrice; 
-        }
+    // let localCartInfo = JSON.parse(localStorage.getItem("SPECIALPIZZA"));
+    //     console.log('for');
+    //     console.log(localCartInfo);
+    //     if (localCartInfo != null) {
+    //         cartItems.innerHTML = `
+    //         <div class="card w-100 specialPizzaItem">
+    //             <div class="card-body d-flex flex-column">
+    //                 <div class="img-fluid w-100 rounded" >
+    //                     ${localStorage.getItem('PIZZAIMG')}
+    //                 </div>
+    //                 <div class="d-flex gap-2">
+    //                     <div class="d-flex flex-column flex-wrap">
+    //                         <h5 class="card-title m-0 p-0 text-start">Özel Pizza</h5>                
+    //                         <div>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //                 <div class="d-flex flex-column justify-content-between">
+    //                     <button class="btn-close align-self-end" onclick="removeItem();"></button>
+    //                     <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
+    //                 </div>
+    //             </div>
+    //         </div>
+    //         `;
+    //         subTotalEl.innerHTML = localCartInfo.totalPrice; 
+    //     }
 }
 
 
