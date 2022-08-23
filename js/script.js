@@ -35,7 +35,7 @@ function cards() {
                     </div>
                 </div>
         `;
-        localStorage.setItem("CART", [pizzas]);
+        localStorage.setItem("CART", JSON.stringify(pizzas));
     });
     
 };
