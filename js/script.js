@@ -35,16 +35,16 @@ function cards() {
                     </div>
                 </div>
         `;
+        localStorage.setItem("CART", [pizzas]);
     });
     
 };
 cards();
 
 // local storage
-updateCart();
 
 let cart = JSON.parse(localStorage.getItem("CART"));
-
+updateCart();
 
 // Sepete ekle
 function addToCart(id) {
