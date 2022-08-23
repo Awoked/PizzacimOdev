@@ -35,14 +35,13 @@ function cards() {
                     </div>
                 </div>
         `;
-        localStorage.setItem("CART", JSON.stringify(pizzas));
     });
     
 };
 cards();
 
 // local storage
-
+localStorage.setItem("CART", JSON.stringify([]));
 let cart = JSON.parse(localStorage.getItem("CART"));
 updateCart();
 
