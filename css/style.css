@@ -1,0 +1,226 @@
+/* simple reset css */ 
+/* important vermedim bootstrap yuzunden suan calismiyor */
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    scroll-behavior: smooth;
+    box-sizing: border-box;
+}
+/*               */
+
+/* sayfayı yuzde yuz kapladigimizdan emin oluyoruz */
+html,
+body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto!important;
+}
+
+/* header boyutlandirma */
+.header{
+    height: 4em;
+}
+/* Main content max-width sizing */
+.cards-wrapper{
+    max-width: 1300px;
+}
+/* Nav links ozel hover */
+.nav-item{
+    opacity: .6;
+}
+.nav-item:hover{
+    opacity: 1;
+}
+.nav-right button:nth-of-type(2){
+    color: #ffc107!important;
+    transition: color .2s ease;
+}
+.nav-right button:nth-of-type(2):hover{
+    color: #000!important;
+}
+
+.nav  li a{
+    color: #ffc107!important;
+    transition: color .2s ease;
+}
+.nav li a:hover{
+    color: #000!important;
+}
+/*                         */
+
+
+/* Dropdown */
+.dropdown-toggle::before{
+    display: none!important;
+}
+
+/* Carousel Animasyon */
+.carousel-item {
+    transition: all .3s ease;
+}
+
+/* Cards */
+.card{
+    width: 20em;
+}
+.card-body button:hover,
+.card-body button:focus{
+    color: #000!important;
+    transition: all .2s ease ;
+}
+.card-img-top{
+    height: 211px;
+}
+
+/* OffcanvasBackdropFilter */
+.offcanvas{
+    background-color: rgba(255, 255, 255, 0.656);
+    backdrop-filter: blur(3px);
+}
+.offcanvas-cardSection .card{
+    
+    background-color: rgba(255, 255, 255, 0.863);
+    backdrop-filter: blur(3px);
+}
+
+/* basket page cards image width */
+
+.basket-wrapper .card-body img{
+    max-width: 24em;
+} 
+
+
+/* CUSTOM PIZZA CSS */
+
+/* Hamur */
+.pastry{
+    position: relative;
+    animation: spinPizza 10s infinite;
+}
+.pastry-standart{
+    width: 14em;
+    height: 14em;
+    transition: width .5s ease, height .5s ease;
+}
+.pastry-thin{
+    transition: width .5s ease, height .5s ease;
+    width: 12em;
+    height: 12em;
+}
+.pastry-thick{
+    transition: width .5s ease, height .5s ease;
+    width: 16em;
+    height: 16em;
+}
+/* slice */
+
+/* Cheese */
+.cheese{
+    width: 90%;
+    height: 90%;
+    display: none;
+    position: absolute;
+    left: 5%;
+    top: 5%;
+    border-radius: 100%;
+    background-color: #ffffc3;
+}
+
+/* Pepperoni */
+.pepperoni-wrapper{
+    z-index: 3;
+    position: absolute;
+    border-radius: 100%;
+    width: 100%;
+    height: 100%;
+    transform: rotate(30deg);
+    transition: all .5s ease;
+    display: none;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+.pepperoni-wrapper:nth-of-type(2){
+    transform: rotate(120deg);
+}
+.pepperoni{
+    width: 2em;
+    height: 2em;
+    background-color: red;
+    position: relative;
+    border-radius: 100%;
+}
+
+/* Corn */
+.corn-wrapper{
+    z-index: 8;
+    border-radius: 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: all .5s ease;
+    display: none;
+    padding: 20px;
+    justify-content: space-between;
+    align-items: center;
+    transform: rotate(60deg);
+}
+.corn-wrapper:nth-of-type(2){
+    transform: rotate(140deg);
+}
+.corn{
+    width: 1em;
+    height: 1em;
+    background-color: yellow;
+    position: relative;
+}
+
+/* Slice */
+.slice-wrapper{
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+}
+.slice{
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+}
+.slice1{
+    display: none;
+}
+.slice2{
+    display: none;
+    transform: rotate(90deg);
+}
+.slice3{
+    display: none;
+    transform: rotate(45deg);
+}
+.slice4{
+    display: none;
+    transform: rotate(130deg);
+}
+
+.kalinlik{
+    width: 80%;
+    height: 8px;
+    transition: all 1s ease;
+}
+
+/* pizza spin animation */
+@keyframes spinPizza {
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
