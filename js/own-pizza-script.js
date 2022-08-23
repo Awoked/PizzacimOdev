@@ -573,7 +573,6 @@ basketBtn.addEventListener("click", function addToBasket() {
     customPizza.forEach((items) => {    
         localStorage.setItem("SPECIALPIZZA", JSON.stringify(items));
     });
-    console.log("onpress");
     let customPizzaImage = document.querySelector('.custom-pizza-image');
     localStorage.setItem("PIZZAIMG", customPizzaImage.outerHTML);
     totalPrice();
