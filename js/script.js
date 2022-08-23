@@ -41,7 +41,7 @@ function cards() {
 cards();
 
 // local storage
-let cart = [];
+let cart = localStorage.setItem("CART", []);
 cart = JSON.parse(localStorage.getItem("CART"));
 updateCart();
 
