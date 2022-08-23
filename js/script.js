@@ -41,9 +41,10 @@ function cards() {
 cards();
 
 // local storage
-let cart = localStorage.setItem("CART", []);
-cart = JSON.parse(localStorage.getItem("CART"));
 updateCart();
+
+let cart = JSON.parse(localStorage.getItem("CART"));
+
 
 // Sepete ekle
 function addToCart(id) {
