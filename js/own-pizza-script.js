@@ -584,6 +584,17 @@ function cartRender() {
         } else {    
             subTotalEl.innerHTML = localCartInfo.totalPrice; 
         }
+    } else {
+        console.log("özel pizza yok");
+        if (standartPizzas != null) {
+            let lastTotal = 0, totalItems = 0 ;
+            standartPizzas.forEach((item) => {
+                lastTotal += item.price * item.numberOfUnits;
+                totalItems += item.numberOfUnits;
+                console.log(lastTotal);
+            });
+            subTotalEl.innerHTML = lastTotal;
+        }
     }
     
 }
