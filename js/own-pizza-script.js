@@ -72,7 +72,6 @@ function customPizzaRender() {
             </div>
         </div>
         `;
-        console.log(items);
     });
 }
 
@@ -93,12 +92,12 @@ function totalPrice() {
         items.totalPrice = items.startPrice;
         subtotal.innerHTML = items.totalPrice;
     });
+    console.log("price");
 }
 
 // Reset choices
 function resetChoice() {
     customPizza.forEach((items) => {
-        console.log(items);
         items.startPrice = 50;
         items.totalPrice = 0;
         totalPrice()
@@ -511,46 +510,111 @@ cornBtn.addEventListener("click", function cornAdd() {
 
 // Sepete ekle
 let basketBtn = document.querySelector('.addToCart');
-let basket = document.querySelector('.offcanvas-cardSection');
+let specialBasket = document.querySelector('.specialRender');
+let standartBasket = document.querySelector('.standartRender');
 let subTotalEl = document.querySelector('.subtotal');
 
 
 function cartRender() {
-    for (let i = 0; i <= 2; i++) {
-        let localCartInfo = JSON.parse(localStorage.getItem("SPECIALPIZZA"));
-        console.log('for');
-        console.log(localCartInfo);
-        if (localCartInfo != null) {
-            basket.innerHTML = `
-            <div class="card w-100 specialPizzaItem">
-                <div class="card-body d-flex flex-column">
-                    <div class="img-fluid w-100 rounded" >
-                        ${localStorage.getItem('PIZZAIMG')}
-                    </div>
+    let standartPizzas = JSON.parse(localStorage.getItem("CART"));
+    if (standartPizzas != null) {
+        standartBasket.innerHTML = "";
+        standartPizzas.forEach((item) => {
+            standartBasket.innerHTML += `
+            <div class="card w-100">
+                <div class="card-body d-flex">
                     <div class="d-flex gap-2">
-                        <div class="d-flex flex-column flex-wrap">
-                            <h5 class="card-title m-0 p-0 text-start">Özel Pizza</h5>                
+                        <img src="../${item.imageSource}" class="img-fluid w-25 rounded" alt="">
+                        <div class="d-flex flex-column">
+                            <h5 class="card-title m-0 p-0">${item.title}</h5>                
                             <div>
+                                <button class="btn btn-warning plus px-3" onclick="changeNumberOfUnits('plus', ${item.id})">+</button>
+                                <span>${item.numberOfUnits}</span>
+                                <button class="btn btn-warning minus px-3" onclick="changeNumberOfUnits('minus', ${item.id})">-</button> 
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex flex-row justify-content-between align-items-center">
-                        <div>
-                            
-                        </div>
-                        <div class="d-flex flex-column justify-content-between">
-                            <button class="btn-close align-self-end" onclick="removeItem();"></button>
-                            <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
-                        </div>
+                    <div class="d-flex flex-column justify-content-between">
+                        <button class="btn-close align-self-end" onclick="removeItemFromCart(${item.id})"></button>
+                        <h4 class="card-text align-self-end">${item.price}TL</h4>
                     </div>
                 </div>
             </div>
-            `;
+            `
+            console.log(item);
+        });
+    }
+    let localCartInfo = JSON.parse(localStorage.getItem("SPECIALPIZZA"));
+    if (localCartInfo != null) {
+        specialBasket.innerHTML = `
+        <div class="card w-100 specialPizzaItem">
+            <div class="card-body d-flex flex-column">
+                <div class="img-fluid w-100 rounded" >
+                    ${localStorage.getItem('PIZZAIMG')}
+                </div>
+                <div class="d-flex gap-2">
+                    <div class="d-flex flex-column flex-wrap">
+                        <h5 class="card-title m-0 p-0 text-start">Özel Pizza</h5>                
+                        <div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex flex-row justify-content-between align-items-center">
+                    <div>
+                        
+                    </div>
+                    <div class="d-flex flex-column justify-content-between">
+                        <button class="btn-close align-self-end" onclick="removeItem();"></button>
+                        <h4 class="card-text align-self-end">${localCartInfo.totalPrice}TL</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        // cart sepet fiyatı toplam
+        if (standartPizzas != null) {
+            let lastTotal = 0, totalItems = 0 ;
+            standartPizzas.forEach((item) => {
+                lastTotal += item.price * item.numberOfUnits;
+                totalItems += item.numberOfUnits;
+                console.log(lastTotal);
+            });
+            lastTotal = lastTotal + localCartInfo.totalPrice;
+            subTotalEl.innerHTML = lastTotal;
+        } else {    
             subTotalEl.innerHTML = localCartInfo.totalPrice; 
         }
     }
+    
 }
 
+function removeItemFromCart(id) {
+    let cart = JSON.parse(localStorage.getItem("CART"));
+    cart = cart.filter( (item) => item.id !== id);
+    localStorage.setItem("CART", JSON.stringify(cart));
+    cartRender();
+}
+
+function changeNumberOfUnits(action, id) {
+    let cart = JSON.parse(localStorage.getItem("CART"));
+    cart = cart.map((item)=> {
+        let numberOfUnits = item.numberOfUnits;
+
+        if (item.id === id){
+            if (action === "minus" && numberOfUnits > 1){
+                numberOfUnits--;
+            }else if (action === "plus") {
+                numberOfUnits++;
+            }
+        }
+        return {
+            ...item,
+            numberOfUnits,
+        };
+    });
+    localStorage.setItem("CART", JSON.stringify(cart));
+    cartRender();
+}
 // pizza sayısını arttırma 
 
 
